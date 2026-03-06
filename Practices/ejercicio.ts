@@ -45,10 +45,11 @@ const inauguracion: number = 1992 // Se declara con const porque esa fecha nunca
 // Identifícalos y corrígelos con un comentario.
 
 let puntos: number = 100;
-puntos = "doscientos";         // Error: ?
+//puntos = "doscientos";         // Error: ?
+puntos = 200;
 
 const usuario: string = "Rafa";
-usuario = "Luis";              // Error: ?
+//usuario = "Luis";              // Error: ?
 // ================================================
 //let puntos: number = 100;
 //puntos = 25;
