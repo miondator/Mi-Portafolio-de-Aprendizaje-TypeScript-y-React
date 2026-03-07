@@ -154,9 +154,130 @@ const saludar = (nombre: string): string => "Hola, " + nombre
 
 ---
 
+## 🔀 Condicionales
+
+Permiten ejecutar bloques de código diferentes dependiendo de si una condición se cumple o no.
+
+### if / else if / else
+
+```typescript
+let aprobados: number = 121;
+let reprobados: number = 21;
+let nombre: string = "Rafa";
+
+if (reprobados > aprobados) {
+    console.log("La mayoría de alumnos reprobó")
+} else if (aprobados > reprobados) {
+    console.log("La mayoría de los alumnos aprobó")
+} else {
+    console.log(nombre)
+}
+```
+
+> 💡 Diferencias con Python:
+> - La condición va entre `()` — Python no los necesita
+> - El bloque de código va entre `{}` — Python usa `:`
+> - `elif` en Python es `else if` en TypeScript
+
+### switch
+
+Alternativa más limpia al `if/else if` cuando una variable puede tener muchos valores posibles.
+
+```typescript
+let clima: string = "nevando"
+
+switch (clima) {
+    case "soleado":
+        console.log("¡Usa bloqueador solar!")
+        break
+    case "lluvioso":
+        console.log("¡Lleva paraguas!")
+        break
+    case "nublado":
+    case "nevando":
+        console.log("¡Lleva una chamarra!")
+        break
+    default:
+        console.log("Clima desconocido")
+}
+```
+
+| Elemento | Función |
+|---|---|
+| `case` | Define un valor posible a comparar |
+| `break` | Detiene la ejecución del switch al terminar un caso |
+| `default` | Se ejecuta si ningún `case` coincide — equivalente al `else` |
+| Fallthrough | Omitir `break` hace que dos `case` compartan el mismo código |
+
+---
+
+## 🔁 Bucles
+
+Permiten repetir un bloque de código un número determinado de veces o mientras se cumpla una condición.
+
+### for
+
+```typescript
+// Estructura:
+// 1️⃣ inicio → 2️⃣ condición → 3️⃣ incremento
+for (let i: number = 0; i < 10; i++) {
+    console.log(i) // imprime del 0 al 9
+}
+```
+
+| Parte | Descripción |
+|---|---|
+| `let i = 0` | Variable contadora — empieza en 0 |
+| `i < 10` | Condición — el bucle corre mientras sea verdadera |
+| `i++` | Incremento — suma 1 a `i` en cada vuelta |
+
+### Recorrer un array con for
+
+```typescript
+const materias: string[] = ["Algebra lineal", "Base de datos", "Algoritmos"]
+
+for (let i: number = 0; i < materias.length; i++) {
+    console.log(materias[i])
+}
+```
+
+> 💡 Usar `materias.length` en lugar de un número fijo hace el código flexible
+> — si el array crece, el bucle sigue funcionando sin cambios.
+
+### Acumular valores con for
+
+```typescript
+// Calcular el promedio de un array de calificaciones
+function promediar(calificaciones: number[]): number {
+    let suma: number = 0
+
+    for (let i: number = 0; i < calificaciones.length; i++) {
+        suma = suma + calificaciones[i]
+    }
+
+    return suma / calificaciones.length
+}
+```
+
+### while — Bucle infinito
+
+```typescript
+// Se ejecuta mientras la condición sea verdadera
+// ⚠️ Siempre debe haber una forma de detenerlo
+while (true) {
+    // código
+}
+```
+
+---
+
 ## 🧠 Analogías útiles (Python → TypeScript)
 
-| Concepto | Python | TypeScript |
+| Condicional simple | `if/elif/else` | `if/else if/else` |
+| Múltiples valores | no existe directo | `switch/case` |
+| Bucle con índice | `for i in range(10)` | `for (let i = 0; i < 10; i++)` |
+| Recorrer lista | `for i in lista` | `for (let i = 0; i < lista.length; i++)` |
+| Bucle infinito | `while True` | `while (true)` |
 |---|---|---|
 | Lista | `["a", "b"]` | `string[] = ["a", "b"]` |
 | Diccionario | `{"nombre": "Rafa"}` | `{ nombre: string } = { nombre: "Rafa" }` |
@@ -177,8 +298,8 @@ const saludar = (nombre: string): string => "Hola, " + nombre
 - [x] Objetos tipados
 - [x] Funciones tradicionales
 - [x] Arrow Functions
-- [ ] Condicionales
-- [ ] Bucles
+- [x] Condicionales — `if/else if/else` y `switch`
+- [x] Bucles — `for` y `while`
 - [ ] Componentes en React
 - [ ] Props y Estado en React
 
