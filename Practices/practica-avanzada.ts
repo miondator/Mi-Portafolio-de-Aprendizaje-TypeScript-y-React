@@ -164,7 +164,7 @@ function dividir(a: number, b:number): number {
     return a + b 
 }
 
-const cuadrado = (n: string): number => n * n 
+const cuadrado = (n: number): number => n * n 
 
 function bienvenida(nombre: string): string {
     //return 42
@@ -194,7 +194,7 @@ function bienvenida(nombre: string): string {
 // - Retorne una descripción completa usando sus datos
 // ================================================
 
-// Tu código aquí:
+
 
 const estudianteDos: {
     nombre: string;
@@ -212,11 +212,50 @@ const estudianteDos: {
     becario: false
 }
 
-function promediar(calificaciones:number[]): number {
-    let resultado: number;
-    resultado: i = for(i in calificaciones): i + i
-} // Ay no supe resolverlo, quise hacerlo como un comprhensension de python y no me resultó
+// Tu código aquí:
 
-function presentarEstudiante(estudianteDos) {
-    return console.log(i) for(i in estudianteDos)
-} //Igual intenté hacerlo como en python pero creo que no resultó
+// Primer intento fallido
+
+// function promediar(calificaciones:number[]): number {
+//     let resultado: number;
+//     resultado: i = for(i in calificaciones): i + i
+// } // Ay no supe resolverlo, quise hacerlo como un comprhensension de python y no me resultó 
+
+//Solución después de entender como funcionan los bucles y condicionales
+function promediar (calificaciones:number[]): number{
+    let promedio:number = 0
+    for (let i:number= 0; i<calificaciones.length; i++) {
+        promedio = promedio + calificaciones[i]
+    }
+    return promedio / calificaciones.length
+}
+
+//Primer intento fallido
+
+// function presentarEstudiante(estudianteDos) {
+//     return console.log(i) for(i in estudianteDos)
+// } //Igual intenté hacerlo como en python pero creo que no resultó
+
+//Solución despues de entender como funcionan los bucles y condicionales
+function presentarEstudiante (estudianteDos:{
+    nombre: string;
+    edad: number;
+    carrera: string;
+    materias: string[];
+    calificaciones: number[];
+    becario: boolean
+}):string {
+    let descripcion: string = "Nombre del adulto: " + estudianteDos.nombre + "\nEdad: " + estudianteDos.edad + "\nCursa la carrera: "+ estudianteDos.carrera + "\nMaterias actuales:\n"
+
+    for (let materia: number= 0; materia<estudianteDos.materias.length; materia++){
+        descripcion = descripcion + estudianteDos.materias[materia]
+    }
+    
+    descripcion = descripcion + "\nCalificaciones actuales:\n"
+
+    for (let calificacion: number= 0; calificacion<estudianteDos.calificaciones.length; calificacion++ ){
+        descripcion = descripcion + estudianteDos.calificaciones[calificacion]
+    }
+    descripcion = descripcion + "\nEl alumno es becario: " + estudianteDos.becario
+    return descripcion
+}
