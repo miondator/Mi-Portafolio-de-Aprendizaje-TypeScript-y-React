@@ -20,6 +20,11 @@
 
 // Tu código aquí:
 
+const playerName: string = "miondator";
+let levelPlayer: number = 55;
+let scorePlayer: number = 69;
+const gameName: string = "Terraria"
+let extraLifePlayer: boolean = true
 
 // ================================================
 // 🟢 EJERCICIO 2 — Condicionales
@@ -32,6 +37,18 @@
 // - Menos de 50 → "Reprobado"
 
 // Tu código aquí:
+
+let calificacion: number = 78
+
+if (calificacion >= 90) {
+    console.log("Excelente")
+} else if (calificacion >= 70 && calificacion < 90){
+    console.log("Aprobado")
+} else if (calificacion >= 50 && calificacion < 70) {
+    console.log("Suficiente")
+} else{
+    console.log("Reprobado")
+}
 
 
 // ================================================
@@ -47,6 +64,8 @@
 
 // Tu código aquí:
 
+const esPar = (numero:number): boolean => numero % 2 === 0
+
 
 // ================================================
 // 🟡 EJERCICIO 4 — Arrays + Bucles
@@ -58,6 +77,11 @@ const precios: number[] = [120, 45, 300, 89, 210, 55, 175];
 
 // Tu código aquí:
 
+for ( let i: number = 0; i < precios.length; i++) {
+    if (precios[i] > 100){
+        console.log(precios[i])
+    }
+}
 
 // ================================================
 // 🟡 EJERCICIO 5 — Objetos + Condicionales
@@ -75,6 +99,31 @@ const precios: number[] = [120, 45, 300, 89, 210, 55, 175];
 
 // Tu código aquí:
 
+const cuentaBancaria: {
+    titular: string;
+    saldo: number;
+    cuentaActiva: boolean;
+} = {
+    titular: "Rafa Gonzalez",
+    saldo: 2030.98,
+    cuentaActiva: true
+}
+
+function retirar(cuentaBancaria:{
+    titular: string,
+    saldo:number,
+    cuentaActiva: boolean
+}, 
+    retiro:number): string {
+    if (cuentaBancaria.cuentaActiva === false){
+        return "Cuenta inactiva"
+    } else if (cuentaBancaria.saldo<retiro) {
+        return "Saldo insuficiente"
+    } else{
+        cuentaBancaria.saldo = cuentaBancaria.saldo - retiro
+        return "Retiro exitoso. Saldo restante: " + cuentaBancaria.saldo
+    }
+}
 
 // ================================================
 // 🟡 EJERCICIO 6 — Switch
@@ -90,6 +139,25 @@ const precios: number[] = [120, 45, 300, 89, 210, 55, 175];
 
 // Tu código aquí:
 
+let transporte: string = "a pie"
+
+switch(transporte) {
+    case "coche":
+        console.log("Tiempo estimado de viaje: 20 minutos")
+        break
+    case "bicicleta":
+        console.log("Tiempo estimado de viaje: 45 minutos")
+        break
+    case "metro":
+        console.log("Tiempo estimado de viaje: 30 minutos")
+        break
+    case "a pie":
+        console.log("Tiempo estimado de viaje: 1 hora 20 minutos")
+        break
+    default:
+        console.log("Transporte no reconocido")
+        break
+}
 
 // ================================================
 // 🟡 EJERCICIO 7 — Bucles + Funciones
@@ -104,12 +172,24 @@ const precios: number[] = [120, 45, 300, 89, 210, 55, 175];
 
 // Tu código aquí:
 
+function encontrarMaximo(numeros: number[] = [3,9,1,7,4,29,12,91,0]) {
+    let numeroMayor: number = 0;
+
+    for (let i: number = 0; i<numeros.length; i++) {
+
+        if (numeros[i] > numeroMayor) {
+            numeroMayor = numeros[i]
+        }
+
+    }
+    return numeroMayor
+}
 
 // ================================================
 // 🔴 EJERCICIO 8 — Variables + Arrays + Bucles + Condicionales
 // ================================================
 // Tienes las calificaciones de un grupo de estudiantes:
-const calificaciones: number[] = [85, 42, 91, 67, 55, 78, 95, 38, 72, 88];
+const calificaciones_mix: number[] = [85, 42, 91, 67, 55, 78, 95, 38, 72, 88];
 //
 // Escribe el código necesario para:
 // 1. Contar cuántos estudiantes aprobaron (calificación >= 60)
@@ -120,6 +200,18 @@ const calificaciones: number[] = [85, 42, 91, 67, 55, 78, 95, 38, 72, 88];
 
 // Tu código aquí:
 
+let aprobados: number = 0;
+let reprobados: number = 0;
+for (let i: number = 0; i<calificaciones_mix.length; i++) {
+    
+    if (calificaciones_mix[i] >= 60){
+        aprobados = aprobados + 1
+    } else if (calificaciones_mix[i] < 60){
+        reprobados = reprobados + 1
+    }
+}
+
+console.log("La cantidad de alumnos aprobados fueron: " + aprobados + "\nLa cantidad de alumnos reprobados fueron: " + reprobados)
 
 // ================================================
 // 🔴 EJERCICIO 9 — Objetos + Funciones + Condicionales
@@ -137,6 +229,70 @@ const calificaciones: number[] = [85, 42, 91, 67, 55, 78, 95, 38, 72, 88];
 // - Si no lo encuentra → retorne "Producto no existe"
 
 // Tu código aquí:
+
+// Primer intento
+const tienda: {
+    nombreTienda: string;
+    productos:{
+        nombreProducto: string,
+        precio: number,
+        disponible: boolean;
+    }[]
+} = {
+    nombreTienda: "Abarrotes Chayo",
+    productos : [
+        {
+            nombreProducto: "Coca cola",
+            precio : 22,
+            disponible : true
+        },
+        {
+            nombreProducto : "Gansito",
+            precio : 15,
+            disponible : true
+        },
+        {
+            nombreProducto : "Pepsi",
+            precio : 23,
+            disponible : false
+        }
+    ]
+}
+
+function buscarProductos(
+    tienda: {nombreProductos:string, precio:number, disponible:boolean}, productoDeseado: string = "Coca cola") {
+    for(productoDeseado in tienda){
+        if(productoDeseado===tienda.nombreProductos[0] && tienda.disponible === true){
+            console.log(tienda.nombreProductos + " - Disponible\nPrecio: " + tienda.precio)
+        } else if(productoDeseado===tienda.nombreProductos[0] && tienda.disponible === false){
+            console.log("Producto agotado")
+        } else{
+            console.log("Producto no existe")
+        }
+    }
+}
+
+//Versión 2 del reto <---- Esta sí está bien jajaja
+function buscarProductos2(
+    productos: {
+        nombreProducto: string;
+        disponibilidad: boolean;
+        precio: number
+    }[],
+    productoDeseado: string ="Pepsi"
+): string {
+    if( productos.length===0){
+        return "No existen productos"
+    }
+    for(let i:number = 0; i<productos.length; i++) {
+        if(productoDeseado === productos[i].nombreProducto && productos[i].disponibilidad === true){
+            return "El producto " + productoDeseado + " está disponible.\nPrecio: " + productos[i].precio
+        } else if (productoDeseado === productos[i].nombreProducto && productos[i].disponibilidad === false){
+            return "Producto no disponible"
+        }
+    }
+    return "Producto no existe"
+}
 
 
 // ================================================
@@ -164,3 +320,61 @@ const calificaciones: number[] = [85, 42, 91, 67, 55, 78, 95, 38, 72, 88];
 //      "Alumno: [nombre] | Promedio: [X] | Estado: [Y]"
 
 // Tu código aquí:
+
+const alumnos : {
+    nombre: string;
+    calificaciones: number[];
+}[] = [
+    {
+        nombre: "Rafa Gonzalez",
+        calificaciones: [10,8,7,6,5,8,6]
+    },
+    {
+        nombre: "Tristan Ruelas",
+        calificaciones: [7,7,7,7,7,8,10]
+    },
+    {
+        nombre: "Ariel Garcia",
+        calificaciones: [10,10,8,9,7,2,5]
+    },
+    {
+        nombre: "Valeria Garcia",
+        calificaciones: [10,10,10,10,8,8,9]
+    }
+]
+
+function promedioAlumno(calificaciones:number[]): number {
+    if (calificaciones.length === 0) {
+        return  0
+    } else {
+        let promedio: number = 0
+        for (let i:number = 0; i<calificaciones.length;i++){
+            promedio = promedio + calificaciones[i]
+        }
+        return promedio/calificaciones.length
+    }
+}
+
+function estado (promedio:number) : string {
+    if(promedio > 80){
+        return "Excelente"
+    } else if (promedio < 80 && promedio > 70){
+        return "Aprobado"
+    } else {
+        return "Reprobado"
+    }
+}
+
+function reporte (alumnos:{
+    nombre: string;
+    calificaciones: number[];}[]
+) {
+
+    if (alumnos.length === 0) {
+        return "No existen alumnos"
+    }
+
+    for (let i:number=0; i<alumnos.length; i++) {
+        console.log("El alumno " + alumnos[i].nombre + " tiene un promedio de " + promedioAlumno(alumnos[i].calificaciones) + ", es decir, tiene un estado " + estado(promedioAlumno(alumnos[i].calificaciones)))
+    }
+}
