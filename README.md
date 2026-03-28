@@ -488,6 +488,174 @@ estudiante.edad = 23              // ✅ modifica una propiedad — permitido
 
 ---
 
+## 🛠️ Métodos de Arrays
+
+Los arrays en TypeScript tienen métodos integrados para manipular su contenido. Todos se llaman con la sintaxis `array.metodo()`.
+
+### Agregar y eliminar elementos
+
+**Python → TypeScript:**
+
+| Python | TypeScript | Descripción |
+|---|---|---|
+| `lista.append(x)` | `array.push(x)` | Agrega al final |
+| `lista.insert(0, x)` | `array.unshift(x)` | Agrega al inicio |
+| `lista.pop()` | `array.pop()` | Elimina el último |
+| `del lista[0]` | `array.shift()` | Elimina el primero |
+| `lista.remove(x)` | `array.splice(i, 1)` | Elimina por índice |
+
+```typescript
+const productos: string[] = ["Coca Cola", "Gansito"]
+
+productos.push("Pepsi")      // → ["Coca Cola", "Gansito", "Pepsi"]
+productos.unshift("Agua")    // → ["Agua", "Coca Cola", "Gansito", "Pepsi"]
+productos.pop()              // → elimina "Pepsi"
+productos.splice(1, 1)       // → elimina el elemento en índice 1
+```
+
+### Buscar y ordenar
+
+| Python | TypeScript | Descripción |
+|---|---|---|
+| `x in lista` | `array.includes(x)` | ¿Existe el elemento? → boolean |
+| `lista.index(x)` | `array.indexOf(x)` | ¿En qué índice está? → number |
+| `lista.sort()` | `array.sort()` | Ordena el array |
+| `lista.reverse()` | `array.reverse()` | Invierte el orden |
+| `lista[a:b]` | `array.slice(a, b)` | Extrae una porción |
+
+```typescript
+const numeros = [3, 1, 4, 1, 5]
+
+numeros.includes(4)          // → true
+numeros.indexOf(1)           // → 1 (primer índice donde aparece)
+numeros.sort((a, b) => a - b) // → [1, 1, 3, 4, 5] (menor a mayor)
+numeros.sort((a, b) => b - a) // → [5, 4, 3, 1, 1] (mayor a menor)
+numeros.slice(1, 3)          // → [1, 4] (índice 1 hasta 3, sin incluir 3)
+```
+
+> 💡 Para ordenar números correctamente siempre usa `(a, b) => a - b`.
+> Sin la función de comparación, `.sort()` ordena como texto, lo que da resultados incorrectos con números.
+
+---
+
+### 🌟 Los tres métodos estrella — map, filter y find
+
+Estos tres son los más usados en React. Los tres reciben una **arrow function** (callback) que se ejecuta una vez por cada elemento del array.
+
+**Regla para elegir cuál usar:**
+```
+¿Quieres transformar TODOS los elementos?      → map
+¿Quieres seleccionar ALGUNOS elementos?        → filter
+¿Quieres encontrar UN elemento específico?     → find
+```
+
+### filter — selecciona elementos
+
+```typescript
+// Python equivalente: [x for x in lista if condicion]
+const precios = [120, 45, 300, 89, 210]
+
+const mayores = precios.filter(precio => precio > 100)
+// → [120, 300, 210]
+
+// Con objetos:
+const productos = [
+    { nombre: "Coca Cola", disponible: true },
+    { nombre: "Pepsi", disponible: false }
+]
+const disponibles = productos.filter(item => item.disponible)
+// → [{ nombre: "Coca Cola", disponible: true }]
+```
+
+### map — transforma elementos
+
+```typescript
+// Python equivalente: [f(x) for x in lista]
+const precios = [100, 200, 300]
+
+// Transformar números
+const conDescuento = precios.map(precio => precio * 0.9)
+// → [90, 180, 270]
+
+// Transformar strings
+const nombres = ["rafa", "miguel"]
+const mayusculas = nombres.map(nombre => nombre.toUpperCase())
+// → ["RAFA", "MIGUEL"]
+
+// Transformar objetos — siempre usa spread para no modificar el original
+const empleados = [{ nombre: "Rafa", salario: 25000 }]
+const conAumento = empleados.map(emp => ({
+    ...emp,                        // copia todas las propiedades
+    salario: emp.salario * 1.10    // sobreescribe solo el salario
+}))
+```
+
+> ⚠️ **Regla clave:** `map` nunca debe modificar el array original.
+> Siempre retorna un array nuevo del mismo tamaño.
+
+### find — encuentra un elemento
+
+```typescript
+const usuarios = [
+    { id: 1, nombre: "Rafa" },
+    { id: 2, nombre: "Miguel" }
+]
+
+const usuario = usuarios.find(u => u.id === 2)
+// → { id: 2, nombre: "Miguel" }
+
+// Si no encuentra nada, retorna undefined — no da error
+const noExiste = usuarios.find(u => u.id === 99)
+// → undefined
+```
+
+---
+
+## 🔀 Spread Operator (`...`)
+
+El spread operator "expande" o "desempaca" el contenido de un array u objeto en otro. Se escribe con tres puntos `...`.
+
+**Analogía:** Imagina una maleta con ropa. El spread operator vacía esa maleta dentro de una maleta nueva, permitiéndote agregar o cambiar prendas sin tocar la original.
+
+### Spread en arrays
+
+```typescript
+const frutas = ["manzana", "pera", "uva"]
+const masFrutas = [...frutas, "mango", "sandía"]
+// → ["manzana", "pera", "uva", "mango", "sandía"]
+
+// Sin spread — resultado incorrecto
+const sinSpread = [frutas, "mango"]
+// → [["manzana", "pera", "uva"], "mango"] ← array dentro de array
+```
+
+### Spread en objetos
+
+```typescript
+const empleado = { nombre: "Rafa", departamento: "Desarrollo", salario: 25000 }
+
+// Crear un objeto nuevo con una propiedad modificada
+const conAumento = {
+    ...empleado,           // copia nombre y departamento
+    salario: 27500         // sobreescribe el salario
+}
+// empleado   → { nombre: "Rafa", departamento: "Desarrollo", salario: 25000 }
+// conAumento → { nombre: "Rafa", departamento: "Desarrollo", salario: 27500 }
+```
+
+> 💡 **Regla:** La propiedad definida **después** del spread gana siempre.
+> Si defines la propiedad antes del spread, el spread la sobreescribe.
+
+```typescript
+// La propiedad DESPUÉS del spread gana
+const obj1 = { ...empleado, salario: 27500 }  // salario = 27500 ✅
+
+// La propiedad ANTES del spread pierde
+const obj2 = { salario: 27500, ...empleado }  // salario = 25000 ❌
+```
+
+---
+
 ## 🧠 Analogías útiles (Python → TypeScript)
 
 | Analogía | Sintaxis Python | Sintaxis TypeScript |
@@ -525,6 +693,8 @@ estudiante.edad = 23              // ✅ modifica una propiedad — permitido
 - [x] Condicionales — `if/else if/else` y `switch`
 - [x] Bucles — `for` y `while`
 - [x] Operadores de comparación y lógicos
+- [x] Métodos de arrays — `push`, `pop`, `filter`, `map`, `find`, `sort`, `slice` y más
+- [x] Spread operator — `...`
 - [ ] `type` e `interface` — definir tipos reutilizables
 - [ ] Componentes en React
 - [ ] Props y Estado en React
