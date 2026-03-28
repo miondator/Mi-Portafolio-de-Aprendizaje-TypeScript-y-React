@@ -27,3 +27,32 @@ const valeria = empleados.find(user=>user.nombre==="Valeria")
 
 // 5. Obtén solo los empleados del departamento de "Desarrollo"
 const desarrollo = empleados.filter(user=>user.departamento==="Desarrollo")
+
+// Práctica usando template literals
+
+// Original
+// function presentarEstudiante(estudiante: {
+//     nombre: string;
+//     edad: number;
+//     carrera: string;
+//     becario: boolean;
+// }): string {
+//     return "Nombre del alumno: " + estudiante.nombre +
+//            "\nEdad: " + estudiante.edad +
+//            "\nCarrera: " + estudiante.carrera +
+//            "\nBecario: " + estudiante.becario
+// }
+
+// Ejercio resuelto
+
+function presentarEstudiante(estudiante: {
+    nombre: string;
+    edad: number;
+    carrera: string;
+    becario: boolean;
+}): string {
+    return `Nombre del alumno: ${estudiante.nombre}
+            Edad: ${estudiante.edad}
+            Carrera: ${estudiante.carrera}
+            Becario: ${estudiante.becario}`
+}

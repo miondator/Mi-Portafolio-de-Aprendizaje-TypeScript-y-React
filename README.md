@@ -488,6 +488,60 @@ estudiante.edad = 23              // ✅ modifica una propiedad — permitido
 
 ---
 
+## 📝 Template Literals
+
+La forma moderna de construir strings en TypeScript. Usa **backticks** (`` ` ``) en lugar de comillas y `${}` para insertar valores.
+
+**Python → TypeScript:**
+```python
+# Python — f-strings
+nombre = "Rafa"
+edad = 22
+print(f"Hola, {nombre}, tienes {edad} años")
+```
+
+```typescript
+// TypeScript — template literals
+const nombre: string = "Rafa"
+const edad: number = 22
+console.log(`Hola, ${nombre}, tienes ${edad} años`)
+```
+
+Dentro de `${}` puedes poner cualquier expresión válida — variables, propiedades de objetos, llamadas a funciones u operaciones matemáticas:
+
+```typescript
+const precio: number = 100
+const descuento: number = 20
+
+console.log(`Precio final: ${precio - (precio * descuento / 100)}`)
+// → "Precio final: 80"
+
+console.log(`El alumno ${alumno.nombre} tiene un estado: ${estado(promedio)}`)
+```
+
+### Saltos de línea
+
+Los template literals respetan los saltos de línea reales — sin necesidad de `\n`:
+
+```typescript
+// Con concatenación — difícil de leer
+"Nombre: " + nombre + "\nEdad: " + edad + "\nCarrera: " + carrera
+
+// Con template literals — exactamente como lo ves, así sale
+`Nombre: ${nombre}
+Edad: ${edad}
+Carrera: ${carrera}`
+```
+
+> ⚠️ **Regla:** La indentación dentro del template literal forma parte del string.
+> Alinea el texto al inicio de la línea si quieres un output limpio.
+
+> 💡 **Cuándo usar cada uno:**
+> Usa template literals siempre que necesites combinar texto con variables.
+> Reserva las comillas normales para strings simples sin variables.
+
+---
+
 ## 🛠️ Métodos de Arrays
 
 Los arrays en TypeScript tienen métodos integrados para manipular su contenido. Todos se llaman con la sintaxis `array.metodo()`.
@@ -693,6 +747,7 @@ const obj2 = { salario: 27500, ...empleado }  // salario = 25000 ❌
 - [x] Condicionales — `if/else if/else` y `switch`
 - [x] Bucles — `for` y `while`
 - [x] Operadores de comparación y lógicos
+- [x] Template Literals — `` `${variable}` ``
 - [x] Métodos de arrays — `push`, `pop`, `filter`, `map`, `find`, `sort`, `slice` y más
 - [x] Spread operator — `...`
 - [ ] `type` e `interface` — definir tipos reutilizables
